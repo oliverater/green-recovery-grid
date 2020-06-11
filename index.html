@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://github.com/downloads/lafeber/world-flags-sprite/flags32.css"/>
+</head>
+<body>
+<div id="table-container">
+<table id="dtBasicExample" class="table table-hover table-striped table-bordered table-sm" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th class="th-sm">Country
+      </th>
+      <th class="th-sm">Sector
+      </th>
+      <th class="th-sm">Subsector
+      </th>
+      <th class="th-sm">Description
+      </th>
+      <th class="th-sm">Reaction
+      </th>
+      <th class="th-sm">Date
+      </th>
+      <th class="th-sm">Status
+      </th>
+      <th class="th-sm">Exchange rate
+      </th>
+      <th class="th-sm">Amount (local)
+      </th>
+      <th class="th-sm">Type
+      </th>
+      <th class="th-sm">Source 1
+      </th>
+      <th class="th-sm">Source 2
+      </th>
+    </tr>
+  </thead>
+  <tbody id="table">
+  </tbody>
+  <tfoot>
+    <tr>                  
+      <th>Country</th>
+      <th>Sector</th>
+      <th>Subsector</th>
+      <th>Description</th>
+      <th>Reaction</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Exchange rate</th>
+      <th>Amount (local)</th>
+      <th>Type</th>
+      <th>Source 1</th>
+      <th>Source 2</th>
+    </tr>
+  </tfoot>
+</table>
+</div>
+
+<script>
+$.getJSON("https://spreadsheets.google.com/feeds/list/1-BMFGtUMNJbqYVPkNSZEqpR3IIJaLPN-xVCKcMXx1mI/1/public/full?alt=json", function (data) {
+
+      
+      var sheetData = data.feed.entry;
+
+      var i;
+      for (i = 0; i < sheetData.length; i++) {
+        var t = $('#dtBasicExample').DataTable();
+        var country = data.feed.entry[i]['gsx$country']['$t'];
+        var sector = data.feed.entry[i]['gsx$sector']['$t'];
+        var subsector = data.feed.entry[i]['gsx$subsector']['$t'];
+        const description = data.feed.entry[i]['gsx$description']['$t'];
+        var reaction = data.feed.entry[i]['gsx$reaction']['$t'];
+        var date = data.feed.entry[i]['gsx$date']['$t'];
+        var status = data.feed.entry[i]['gsx$status']['$t'];
+        var exchangeRate = data.feed.entry[i]['gsx$exchangerate']['$t'];
+        var amountLocal = data.feed.entry[i]['gsx$amountlocal']['$t'];
+        var type = data.feed.entry[i]['gsx$type']['$t'];
+        var source1 = data.feed.entry[i]['gsx$source1']['$t'];
+        var source2 = data.feed.entry[i]['gsx$source2']['$t'];
+        let clip1 = source1.split("https://").pop().split("/")[0];
+        let clip2 = source2.split("https://").pop().split("/")[0];
+
+         t.row.add([
+          country,
+          sector,
+          subsector,
+          description,
+          reaction,
+          date,
+          status,
+          exchangeRate,
+          amountLocal,
+          type,
+          '<a href=\"' + source1 + '\">' + clip1 + '</a>',
+          '<a href=\"' + source2 + '\">' + clip2 + '</a>',
+        ]).draw( false );
+      }
+
+
+
+    });
+$(document).ready(function () {
+$('#dtBasicExample').DataTable({
+  columnDefs: [{
+      targets: 3,
+      render: $.fn.dataTable.render.ellipsis( 130, true )
+    }],
+      "createdRow": function ( row, data, index ) {
+            if (data[0] == 'Germany' ) {
+                $('td', row).eq(0).addClass('de flag');
+            }
+        },
+
+        "order": [[ 0, "desc" ]],
+        "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]]
+    });
+$('.dataTables_length').addClass('bs-select');
+});
+
+
+
+/*var container = document.querySelector("table#dtBasicExample");
+var matches = container.querySelectorAll("tr");*/
+
+/*var elList = Array.prototype.slice.call(
+    document.querySelectorAll("td"));
+
+    
+elList.forEach(function(el) {
+  // Use .textContent when you aren't interested in HTML
+  if (el.textContent.indexOf("Germany") > -1) {
+    console.log(el);
+    el.classList.add("newClass");  // Use the .classList API (easier)
+  }
+});
+console.log('td')*/
+
+
+</script>
+
+  </script>
+    <script src="js/addons/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/ellipsis.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
