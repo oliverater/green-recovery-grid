@@ -115,7 +115,9 @@ $('#dtBasicExample').DataTable({
       "createdRow": function ( row, data, index ) {
             if (data[0] == 'Germany' ) {
                 $('td', row).eq(0).addClass('de flag');
-            }
+            } else if (data[0] == 'European Union' ) {
+                $('td', row).eq(0).addClass('eu flag');
+              }
         },
 
         "order": [[ 0, "desc" ]],

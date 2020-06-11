@@ -157,6 +157,10 @@ td.sorting_1{
 	background-image: url('https://www.worldometers.info/img/flags/gm-flag.gif');
 }
 
+.eu {
+    background-image: url('https://europa.eu/european-union/sites/europaeu/files/docs/body/flag_yellow_high.jpg');   
+}
+
 table{
 	margin: 0 auto;
      width: 100%;
