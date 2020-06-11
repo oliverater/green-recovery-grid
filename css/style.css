@@ -178,10 +178,10 @@ white-space: nowrap;
 }*/
 
 th:nth-child(4), td:nth-child(4){
-	/*width:300px;*/
+	width:300px;
 }
 
 th:nth-child(11), td:nth-child(11), th:nth-child(12), td:nth-child(12){
-	/*width:170px;*/
+	width:170px;
 	word-wrap: break-word;
 }
