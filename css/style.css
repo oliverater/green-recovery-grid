@@ -151,6 +151,7 @@ td.sorting_1{
     background-repeat: no-repeat;
     background-position: center;
     color:white;
+    text-shadow: 1px 1px 6px #333333;
     }
 
 .de {
@@ -159,6 +160,10 @@ td.sorting_1{
 
 .eu {
     background-image: url('https://europa.eu/european-union/sites/europaeu/files/docs/body/flag_yellow_high.jpg');   
+}
+
+.ks {
+    background-image: url('https://www.worldometers.info/img/flags/ks-flag.gif');   
 }
 
 table{
@@ -177,10 +182,75 @@ tr{
 	max-height:45px;
 }
 
+#header{
+    width:100%;
+    height:300px;
+    margin: auto 0;
+    border: blue solid 1px;
+    background-image: url(../img/solar-panels-china-2AE7EG6.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
+#header-title{
+    padding-top:4em;
+    padding-left:3em;
+}
 
-th:nth-child(4), td:nth-child(4){
-    width:18%;
+#header-title h1{
+    color:#ffffff;
+    font-family: PT Sans Narrow;
+}
+
+#header-title p{
+    font-family: 'PT Serif';
+    color:#ffffff;
+}
+
+/*.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}*/
+
+/*MEDIA QUERIES*/
+
+th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5){
+    width:16%;
 }
 
 th:nth-child(11), td:nth-child(11), th:nth-child(12), td:nth-child(12){
