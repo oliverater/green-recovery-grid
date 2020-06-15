@@ -208,6 +208,10 @@ tr{
     color:#ffffff;
 }
 
+th:nth-child(13), td:nth-child(13){
+    display: none;
+}
+
 /*.tooltip {
   position: relative;
   display: inline-block;
@@ -248,7 +252,7 @@ tr{
 }*/
 
 /*MEDIA QUERIES*/
-
+@media screen and (min-width:1201px){
 th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5){
     width:16%;
 }
@@ -256,6 +260,7 @@ th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5){
 th:nth-child(11), td:nth-child(11), th:nth-child(12), td:nth-child(12){
     width:10%;
 	word-wrap: break-word;
+}
 }
 
 @media screen and (min-width:980px) and (max-width: 1200px){
@@ -269,16 +274,35 @@ th:nth-child(11), td:nth-child(11), th:nth-child(12), td:nth-child(12){
 }
 }
 
-@media screen and (min-width:500px) and (max-width: 979px){
+
+@media screen and (min-width:739px) and (max-width: 979px){
     th:nth-child(4), td:nth-child(4){
     width:12%;
+    font-size:8px;
 }
 
 th:nth-child(11), td:nth-child(11), th:nth-child(12), td:nth-child(12){
-    width:5%;
+    width:10%;
     word-wrap: break-word;
 }
 table{
     font-size:10px;
 }
 }
+
+
+@media screen and (min-width:300px) and (max-width: 738px){
+th:nth-child(11), td:nth-child(11), th:nth-child(12), td:nth-child(12), th:nth-child(8), td:nth-child(8){
+    display: none
+    }
+    th{
+        width:8%;
+    }
+ th:nth-child(13), td:nth-child(13){
+    display:table-cell;
+    width:6%;
+}   
+    table{
+    font-size:8px;
+}
+    }

@@ -11,9 +11,8 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!-- Bootstrap CSS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.js"></script> -->
     
-    <!-- <link rel="stylesheet" type="text/css" href="https://github.com/downloads/lafeber/world-flags-sprite/flags32.css"/> -->
 </head>
 <body>
 <div id="table-container">
@@ -50,11 +49,13 @@
       </th>
       <th class="th-sm">Source 2
       </th>
+      <th class="th-sm">Source
+      </th>
     </tr>
   </thead>
   <tbody id="table">
   </tbody>
-  <tfoot>
+  <!-- <tfoot>
     <tr>                  
       <th>Country</th>
       <th>Sector</th>
@@ -68,8 +69,9 @@
       <th>Type</th>
       <th>Source 1</th>
       <th>Source 2</th>
+      <th>Source</th>
     </tr>
-  </tfoot>
+  </tfoot> -->
 </table>
 </div>
 
@@ -85,26 +87,28 @@ $.getJSON("https://spreadsheets.google.com/feeds/list/1-BMFGtUMNJbqYVPkNSZEqpR3I
         var country = data.feed.entry[i]['gsx$country']['$t'];
         var sector = data.feed.entry[i]['gsx$sector']['$t'];
         var subsector = data.feed.entry[i]['gsx$subsector']['$t'];
-        const description = data.feed.entry[i]['gsx$description']['$t'];
-        const titledescription = data.feed.entry[i]['gsx$description']['$t'].replace( /"/g, '&quot;' );
-        const reactiondescription = data.feed.entry[i]['gsx$reaction']['$t'].replace( /"/g, '&quot;' );
-        var reaction = data.feed.entry[i]['gsx$reaction']['$t'];
+        const description = data.feed.entry[i]['gsx$description']['$t'].replace( /"/g, '&quot;' );
+        /*const titledescription = data.feed.entry[i]['gsx$description']['$t'].replace( /"/g, '&quot;' );
+        const reactiondescription = data.feed.entry[i]['gsx$reaction']['$t'].replace( /"/g, '&quot;' );*/
+        var reaction = data.feed.entry[i]['gsx$reaction']['$t'].replace( /"/g, '&quot;' );
         var date = data.feed.entry[i]['gsx$date']['$t'];
         var status = data.feed.entry[i]['gsx$status']['$t'];
         var exchangeRate = data.feed.entry[i]['gsx$exchangerate']['$t'];
         var amountLocal = data.feed.entry[i]['gsx$amountlocal']['$t'];
         var type = data.feed.entry[i]['gsx$type']['$t'];
-        var source1 = data.feed.entry[i]['gsx$source1']['$t'];
-        var source2 = data.feed.entry[i]['gsx$source2']['$t'];
+        var source1 = data.feed.entry[i]['gsx$sourcedocument']['$t'];
+        var source2 = data.feed.entry[i]['gsx$furthercoverage']['$t'];
         let clip1 = source1.split("https://").pop().split("/")[0];
         let clip2 = source2.split("https://").pop().split("/")[0];
+        let mobclip = "1";
+        let mobclip2 = "2";
 
          t.row.add([
           country,
           sector,
           subsector,
-          '<div data-toggle="tooltip" title="'+titledescription+'">' + description.substring(0, 130) + '...</div>',
-          '<div data-toggle="tooltip" title="'+reactiondescription+'">' + reaction.substring(0, 130) + '...</div>',
+          description,
+          reaction,
           date,
           status,
           exchangeRate,
@@ -112,6 +116,7 @@ $.getJSON("https://spreadsheets.google.com/feeds/list/1-BMFGtUMNJbqYVPkNSZEqpR3I
           type,
           '<a href=\"' + source1 + '\">' + clip1 + '</a>',
           '<a href=\"' + source2 + '\">' + clip2 + '</a>',
+          '<a href=\"' + source1 + '\">' + mobclip +'</a>',
         ]).draw( false );
       }
 
@@ -121,16 +126,28 @@ $.getJSON("https://spreadsheets.google.com/feeds/list/1-BMFGtUMNJbqYVPkNSZEqpR3I
 
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
+/*  var dataSrc = [];*/
  var table = $('#dtBasicExample').DataTable({
-  
+
   columnDefs: [{
-      targets: 3,
+      targets: [3,4],
       /*render: $.fn.dataTable.render.ellipsis( 130, true ),*/
-      /*render: function ( data, type, row, meta ) {
-      return type === 'display' && data.length > 40 ?
-        '<span title="'+data+'">'+data.substr( 0, 38 )+'...</span>' :
+     /* render: function ( data, type, row, meta ) {
+      return type === 'display' && data.length > 130 ?
+        '<div data-toggle="tooltip" title="'+data+'">'+data.substr( 0, 130 )+'...</span>' :
         data;
-    }*/
+    },*/
+    render: function checkPosition(data, type, row, meta) {
+    if (window.matchMedia('(max-width: 737px)').matches) {
+        return type === 'display' && data.length > 40 ?
+        '<div data-toggle="tooltip" title="'+data+'">'+data.substr( 0, 40 )+'...</span>' :
+        data;
+    } else if (window.matchMedia('(min-width: 738px)').matches){ 
+      return type === 'display' && data.length > 130 ?
+        '<div data-toggle="tooltip" title="'+data+'">'+data.substr( 0, 130 )+'...</span>' :
+        data;
+      }
+    }
     }],
 
       "createdRow": function ( row, data, index ) {
@@ -143,18 +160,17 @@ $(document).ready(function () {
               }
         },
         drawCallback: function (settings) {
-      console.log('drawCallback');
       $('[data-toggle="tooltip"]').tooltip();
         },
 
         "order": [[ 0, "asc" ]],
         "lengthMenu": [[12, 24, 48, -1], [12, 24, 48, "All"]],
 
+
     })
   $('.dataTables_length').addClass('bs-select');
   
    table.on( 'draw', function () {
-    console.log('draw event');
     $('[data-toggle="tooltip"]').tooltip();
   } );
 });
@@ -163,6 +179,24 @@ $(document).ready(function () {
 
   </script>
     <script src="js/addons/datatables.min.js"></script>
-    <!-- <script src="js/addons/ellipsis.js"></script> -->
+    <script src="js/addons/ellipsis.js"></script>
   </body>
 </html>
+
+  <!-- 'initComplete': function(){
+         var api = this.api();
+         api.cells('tr', [0, 1, 2]).every(function(){
+            // Get cell data as plain text
+            var data = $('<div>').html(this.data()).text();           
+            if(dataSrc.indexOf(data) === -1){ dataSrc.push(data); }
+         });
+         dataSrc.sort();
+       $('.dataTables_filter input[type="search"]', api.table().container())
+            .typeahead({
+               source: dataSrc,
+               afterSelect: function(value){
+                  api.search(value).draw();
+               }
+            }
+         );
+          }, -->
