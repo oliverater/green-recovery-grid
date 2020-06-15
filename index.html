@@ -33,21 +33,21 @@
       </th>
       <th class="th-sm">Description
       </th>
-      <th class="th-sm">Reaction
-      </th>
+      <!-- <th class="th-sm">Reaction
+      </th> -->
       <th class="th-sm">Date
       </th>
       <th class="th-sm">Status
       </th>
-      <th class="th-sm">Exchange rate
+      <th class="th-sm">Amount (USD)
       </th>
       <th class="th-sm">Amount (local)
       </th>
       <th class="th-sm">Type
       </th>
-      <th class="th-sm">Source 1
+      <th class="th-sm">Source document
       </th>
-      <th class="th-sm">Source 2
+      <th class="th-sm">Further coverage
       </th>
       <th class="th-sm">Source
       </th>
@@ -90,10 +90,10 @@ $.getJSON("https://spreadsheets.google.com/feeds/list/1-BMFGtUMNJbqYVPkNSZEqpR3I
         const description = data.feed.entry[i]['gsx$description']['$t'].replace( /"/g, '&quot;' );
         /*const titledescription = data.feed.entry[i]['gsx$description']['$t'].replace( /"/g, '&quot;' );
         const reactiondescription = data.feed.entry[i]['gsx$reaction']['$t'].replace( /"/g, '&quot;' );*/
-        var reaction = data.feed.entry[i]['gsx$reaction']['$t'].replace( /"/g, '&quot;' );
+        /*var reaction = data.feed.entry[i]['gsx$reaction']['$t'].replace( /"/g, '&quot;' );*/
         var date = data.feed.entry[i]['gsx$date']['$t'];
         var status = data.feed.entry[i]['gsx$status']['$t'];
-        var exchangeRate = data.feed.entry[i]['gsx$exchangerate']['$t'];
+        var amountUSD = data.feed.entry[i]['gsx$amountusd']['$t'];
         var amountLocal = data.feed.entry[i]['gsx$amountlocal']['$t'];
         var type = data.feed.entry[i]['gsx$type']['$t'];
         var source1 = data.feed.entry[i]['gsx$sourcedocument']['$t'];
@@ -108,10 +108,9 @@ $.getJSON("https://spreadsheets.google.com/feeds/list/1-BMFGtUMNJbqYVPkNSZEqpR3I
           sector,
           subsector,
           description,
-          reaction,
           date,
           status,
-          exchangeRate,
+          amountUSD,
           amountLocal,
           type,
           '<a href=\"' + source1 + '\">' + clip1 + '</a>',
@@ -126,11 +125,14 @@ $.getJSON("https://spreadsheets.google.com/feeds/list/1-BMFGtUMNJbqYVPkNSZEqpR3I
 
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
+
 /*  var dataSrc = [];*/
  var table = $('#dtBasicExample').DataTable({
 
-  columnDefs: [{
-      targets: [3,4],
+
+  columnDefs: [
+      { bSortable: false, targets: [3, 9, 10, 11] },
+      { targets: 3,
       /*render: $.fn.dataTable.render.ellipsis( 130, true ),*/
      /* render: function ( data, type, row, meta ) {
       return type === 'display' && data.length > 130 ?
@@ -139,16 +141,17 @@ $(document).ready(function () {
     },*/
     render: function checkPosition(data, type, row, meta) {
     if (window.matchMedia('(max-width: 737px)').matches) {
-        return type === 'display' && data.length > 40 ?
-        '<div data-toggle="tooltip" title="'+data+'">'+data.substr( 0, 40 )+'...</span>' :
+        return type === 'display' && data.length > 60 ?
+        '<div data-toggle="tooltip" disabled title="'+data+'">'+data.substr( 0, 60 )+'...</span>' :
         data;
     } else if (window.matchMedia('(min-width: 738px)').matches){ 
-      return type === 'display' && data.length > 130 ?
-        '<div data-toggle="tooltip" title="'+data+'">'+data.substr( 0, 130 )+'...</span>' :
+      return type === 'display' && data.length > 200 ?
+        '<div data-toggle="tooltip" disabled title="'+data+'">'+data.substr( 0, 200 )+'...</span>' :
         data;
       }
     }
-    }],
+  }
+    ],
 
       "createdRow": function ( row, data, index ) {
             if (data[0] == 'Germany' ) {
@@ -168,6 +171,12 @@ $(document).ready(function () {
 
 
     })
+
+ /*$('#dtBasicExample tbody').on('click', 'tr', function () {
+        var data = table.row( this ).data();
+        ( 'You clicked on '+data[0]+'\'s row' );
+    } );*/
+
   $('.dataTables_length').addClass('bs-select');
   
    table.on( 'draw', function () {
