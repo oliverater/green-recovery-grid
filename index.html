@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Green recovery package tracker</title>
+  <title>Green recovery: Tracking the world’s plans to cut emissions after coronavirus</title>
   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/bootstrap.css">
@@ -18,8 +18,8 @@
 <table id="dtBasicExample" class="table table-hover table-striped table-sm" cellspacing="0" width="100%">
   <div id="header">
     <div id="header-title">
-      <h1>Green recovery title</h1>
-      <p>Subtitle: and directions how to use...</p>
+      <h1>Green recovery: Tracking the world’s plans to cut emissions after coronavirus</h1>
+      <!-- <p>Subtitle: and directions how to use...</p> -->
     </div>
     <div id="logo">
       <img src="img/cblogo.png">
@@ -122,7 +122,7 @@ $(document).ready(function () {
     render: function checkPosition(data, type, row, meta) {
     if (window.matchMedia('(min-width: 401px) and (max-width: 737px)').matches) {
         return type === 'display' && data.length > 60 ?
-        '<div data-toggle="tooltip" disabled title="'+data+'">'+data.substr( 0, 60 )+'...</span>' :
+        '<div data-toggle="tooltip" disabled title="'+data+'">'+data.substr( 0, 75 ).replace( '&quot;', '"' )+'...</span>' :
         data;
     } else if (window.matchMedia('(max-width: 400px)').matches){ 
         return type === 'display' && data.length > 50 ?

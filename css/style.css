@@ -203,17 +203,21 @@ tr{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
 }
 
 #header-title{
-    display: inline-block;
+    display: inline-flex;
     padding-top:3em;
     padding-left:3em;
+    width:95%;
 }
 
 #header-title h1{
     color:#ffffff;
     font-family: 'PT Sans Narrow', sans-serif;
+    text-shadow: 1px 1px 8px #333333;
+    font-size:36px;
 }
 
 #header-title p{
@@ -222,10 +226,10 @@ tr{
 }
 
 #logo{
-    display: inline-block;
-    float: right;
-    margin-right: 1.8em;
+    display: inline-flex;
     margin-top: 8em;
+    width:5%;
+    margin-right:1.5em;
 }
 
 #logo img{
@@ -336,7 +340,7 @@ th:nth-child(12), td:nth-child(12){
 
     #header {
     width: 107%;
-    height: 100px;
+    height: 80px;
     }   
 
     #header-title{
@@ -345,17 +349,15 @@ th:nth-child(12), td:nth-child(12){
     }
 
     #header-title h1{
-        font-size:22px;
-    }
-    #header-title p{
-        font-size:12px;
+        font-size:16px;
+        width:66%;
     }
 
     #logo{
     display: inline-block;
     float: right;
     margin-right: 3em;
-    margin-top: 4em;
+    margin-top: 3em;
     }
 
     #logo img{
