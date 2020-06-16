@@ -140,9 +140,13 @@ $(document).ready(function () {
         data;
     },*/
     render: function checkPosition(data, type, row, meta) {
-    if (window.matchMedia('(max-width: 737px)').matches) {
+    if (window.matchMedia('(min-width: 401px) and (max-width: 737px)').matches) {
         return type === 'display' && data.length > 60 ?
         '<div data-toggle="tooltip" disabled title="'+data+'">'+data.substr( 0, 60 )+'...</span>' :
+        data;
+    } else if (window.matchMedia('(max-width: 400px)').matches){ 
+        return type === 'display' && data.length > 50 ?
+        '<div data-toggle="tooltip" disabled title="'+data+'">(Click to expand)</span>' :
         data;
     } else if (window.matchMedia('(min-width: 738px)').matches){ 
       return type === 'display' && data.length > 200 ?
