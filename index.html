@@ -10,12 +10,13 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="js/addons/datatables.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans&family=PT+Sans+Narrow&family=PT+Serif&display=swap" rel="stylesheet">
     
 </head>
 <body>
 <div id="table-container">
-<table id="dtBasicExample" class="table table-hover table-striped table-sm" cellspacing="0" width="100%">
+<table id="greenRecoveryTracker" class="table table-hover table-striped table-sm" cellspacing="0" width="100%">
   <div id="header">
     <div id="header-title">
       <h1>The world’s ‘green recovery’ plans to cut emissions after coronavirus</h1>
@@ -66,7 +67,7 @@ $.getJSON("https://spreadsheets.google.com/feeds/list/1-BMFGtUMNJbqYVPkNSZEqpR3I
   
       var i;
       for (i = 0; i < sheetData.length; i++) {
-        var t = $('#dtBasicExample').DataTable();
+        var t = $('#greenRecoveryTracker').DataTable();
         var country = data.feed.entry[i]['gsx$country']['$t'];
         var sector = data.feed.entry[i]['gsx$sector']['$t'];
         var subsector = data.feed.entry[i]['gsx$subsector']['$t'];
@@ -109,7 +110,7 @@ $.getJSON("https://spreadsheets.google.com/feeds/list/1-BMFGtUMNJbqYVPkNSZEqpR3I
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
 
- var table = $('#dtBasicExample').DataTable({
+ var table = $('#greenRecoveryTracker').DataTable({
   lengthChange: false,
   pageLength: 12,
 
@@ -162,16 +163,13 @@ $(document).ready(function () {
         ( 'You clicked on '+data[0]+'\'s row' );
     } );*/
 
-  $('.dataTables_length').addClass('bs-select');
+  /*$('.dataTables_length').addClass('bs-select');*/
   
-   table.on( 'draw', function () {
+   /*table.on( 'draw', function () {
     $('[data-toggle="tooltip"]').tooltip();
-  } );
+  } );*/
 });
 
 </script>
-
-  </script>
-    <script src="js/addons/datatables.min.js"></script>
   </body>
 </html>
